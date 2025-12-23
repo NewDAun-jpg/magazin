@@ -39,8 +39,7 @@ class CartItem(models.Model):
 class Profile(models.Model):
     pass
 
-class likes(models.Model):
-    pass
+
 
 
 
