@@ -1,0 +1,21 @@
+<!-- Пример структуры, которую нужно проверить в своём шаблоне -->
+{% extends 'products/base.html' %}
+
+{% block title %}Главная страница{% endblock %}
+
+{% block content %}
+    <h1>Наши товары</h1>
+
+    <!-- Цикл по товарам -->
+    {% for product in products %}
+        <div>
+            <!-- Название товара (можно как ссылку) -->
+            <a href="{% url 'product_detail' product.id %}">{{ product.name }}</a>
+            <!-- Цена -->
+            <span>{{ product.price }} руб.</span>
+        </div>
+    {% empty %}
+        <!-- Если товаров нет -->
+        <p>Товаров пока нет.</p>
+    {% endfor %}
+{% endblock %}

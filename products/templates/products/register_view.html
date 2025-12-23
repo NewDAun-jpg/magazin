@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form method='POST'>
+    {% csrf_token%}
+    <input type='text' name='username'>
+    <input type='password' name='password'>
+    <button type='submit'> зарегатся как черт</button>
+</form>
+{% block content %}
+    <h1>Наши товары</h1>
+
+    <!-- Цикл по товарам -->
+    {% for product in products %}
+        <div>
+            <!-- Название товара (можно как ссылку) -->
+            <a href="{% url 'product_detail' product.id %}">{{ product.name }}</a>
+            <!-- Цена -->
+            <span>{{ product.price }} руб.</span>
+        </div>
+    {% empty %}
+        <!-- Если товаров нет -->
+        <p>Товаров пока нет.</p>
+    {% endfor %}
+{% endblock %}
+
+</body>
+</html>

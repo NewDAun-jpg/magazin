@@ -1,0 +1,12 @@
+{% extends 'products/base.html' %}
+
+{% block title %}{{ product.name }}{% endblock %}
+
+{% block content %}
+    <h1>{{ product.name}}</h1>
+    <p>Цена: {{ product.price }} руб.</p>
+    <p>{{ product.description }}</p>
+
+    <!-- Ссылка должна быть ВНУТРИ блока content -->
+    <a href="{% url 'home' %}">Назад к списку товаров</a>
+{% endblock %}

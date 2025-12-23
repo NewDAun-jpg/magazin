@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Магазин{% endblock %}</title>
+</head>
+<body>
+    <nav>
+        <a href="{% url 'home' %}">Главная</a>
+        <a href="{% url 'about' %}">О нас</a>
+        <a href="{% url 'contact' %}">Контакты</a>
+        <a href="{% url 'register' %}"> регистрация</a>
+
+    </nav>
+
+    <main>
+        {% block content %}
+        <!-- Сюда подставится содержимое дочерних шаблонов -->
+        {% endblock %}
+    </main>
+
+    <footer>
+        <p>© /МОЙ </p>
+    </footer>
+</body>
+</html>
