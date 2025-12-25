@@ -1,12 +1,9 @@
+from django.contrib.auth.models import User
 from django.http import HttpResponse
-from django.shortcuts import render, redirect
-from django.contrib.auth.decorators import login_required
-
-from django.contrib.auth import login, authenticate, logout
-from django.contrib.auth import user_login_failed
-
+from django.shortcuts import render
 
 from .models import Product
+
 
 def home(request):
     products = Product.objects.all()
@@ -25,13 +22,13 @@ def adres(request,product_id):
 
 def register_view(request):
     if request.method == 'POST':
-        name = request.POST.get('username').get('password')# Получить username и password из request.POST
-        if request.user.is_authenticated:
-            return  render(request,'products/home.html') #Проверить, нет ли такого пользователя
+        password = request.POST.get('password')
+        username = request.POST.get('username')
+        if User.objects.filter(username=username).exists():
+            return HttpResponse('имя занято,даун')#Проверить, нет ли такого пользователя
         else:
-            return  HttpResponse('зарегайся сначаал идиот')# Если есть — вернуть ошибку
-        # Если нет — создать пользователя, залогинить
-        pass
+            create_user = User.objects.create_user(username=username, password=password)
+            return render(request, 'products/home.html')
     else:
         return render(request, 'products/register_view.html')
 
