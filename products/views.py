@@ -1,6 +1,8 @@
 from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.shortcuts import render
+from django.contrib import redirects
+from django.contrib.auth import authenticate, login, logout
 
 from .models import Product
 
@@ -32,8 +34,10 @@ def register_view(request):
     else:
         return render(request, 'products/register_view.html')
 
-def login_view(request):
+def login_view(request, create_user):
     return render(request, 'products/login.html')
+
+
 
 
 
