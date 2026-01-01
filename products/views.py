@@ -37,6 +37,10 @@ def register_view(request):
 def login_view(request):
     return render(request, 'products/login.html')
 
+def cartitem(request):
+    pass
+
+
 
 
 
