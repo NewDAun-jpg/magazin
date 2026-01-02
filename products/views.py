@@ -1,8 +1,7 @@
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.shortcuts import render
-from django.shortcuts import redirect
-from django.contrib.auth import authenticate, login, logout
 
 from .models import Product
 
@@ -37,8 +36,16 @@ def register_view(request):
 def login_view(request):
     return render(request, 'products/login.html')
 
-def cartitem(request):
-    pass
+@login_required
+def cartitem(request,product_id):
+    if request.method == "POST":
+        product_id = Product.objects.get(id=product_id)
+        return render(request, 'products/cart.html')
+    else:
+        return HttpResponse('аутист')
+
+
+
 
 
 
