@@ -10,7 +10,7 @@ class Product(models.Model):
     price = models.DecimalField(decimal_places=2, max_digits=10)
     description = models.TextField()
     category = models.ForeignKey('Category', on_delete=models.CASCADE,null=True,blank=True)
-    image = models.ImageField(upload_to='image/',null=True,blank=True)
+    image = models.ImageField(upload_to='products/')
 
 
     def __str__(self):
