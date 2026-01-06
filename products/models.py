@@ -16,6 +16,14 @@ class Product(models.Model):
     def __str__(self):
         return f'ID:{self.id}'
 
+class Wishlist(models.Model): #избранные товары
+    name = models.CharField(max_length=100)
+
+
+class  uniqueuser(models.Model):#создание пользхователя(главного?)
+    name = models.CharField(max_length=100)
+    age = models.PositiveIntegerField(null=True,blank=True)
+    email = models.EmailField(null=True,blank=True)
 
 
 
@@ -37,8 +45,7 @@ class CartItem(models.Model):
     products = models.ForeignKey('Product', on_delete=models.CASCADE)
     quantity = models.IntegerField()
 
-class Profile(models.Model):
-    pass
+
 
 
 

@@ -21,7 +21,7 @@ def adres(request,product_id):
     return render(request, 'products/product_detail.html', {'product': adres})
 
 
-def register_view(request):
+def register_view(request):#регистрация пользователя
     if request.method == 'POST':
         password = request.POST.get('password')
         username = request.POST.get('username')
