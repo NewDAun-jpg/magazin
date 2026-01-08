@@ -1,4 +1,4 @@
-from email.policy import default
+
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -8,8 +8,9 @@ class Product(models.Model):
     name = models.CharField(max_length=100)
     price = models.DecimalField(decimal_places=2, max_digits=10)
     description = models.TextField()
-    category = models.ForeignKey('Category',on_delete=models.PROTECT,blank=True)
+    category = models.ForeignKey('Category',on_delete=models.PROTECT)
     image = models.ImageField(upload_to='products/')
+    Wishlist = models.ForeignKey('Wishlist',on_delete=models.PROTECT)
 
 
 
@@ -18,19 +19,13 @@ class Product(models.Model):
 
 class Wishlist(models.Model): #избранные товары
     name = models.CharField(max_length=100)
+    User =
 
 
-class  uniqueuser(models.Model):#создание пользхователя(главного?)
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+
+class UniqueUser(models.Model):#создание пользхователя(главного?)
+    User = models.OneToOneField(User, on_delete=models.CASCADE)
     age = models.PositiveIntegerField(null=True,blank=True)
-
-
-class user(models.Model):
-    email = models.EmailField(null=True, blank=True)
-    name = models.CharField(max_length=100)
-
-
-
 
 class Category(models.Model): # тут будет категория товаров
     name = models.CharField(max_length=100)
@@ -40,7 +35,7 @@ class Category(models.Model): # тут будет категория товар�
 
 class Cart(models.Model):
     name = models.CharField(max_length=100)
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    UniqueUser = models.OneToOneField(User, on_delete=models.CASCADE)
     
 
     def __str__(self):
