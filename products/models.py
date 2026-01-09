@@ -23,7 +23,7 @@ class Product(models.Model):
 
 
 class UniqueUser(models.Model):  # Профиль пользователя
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
     age = models.PositiveIntegerField(null=True, blank=True)
 
     def __str__(self):
