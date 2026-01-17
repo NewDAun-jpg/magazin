@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.shortcuts import redirect
+from django.contrib import messages
 
 def about(request):
     return render(request, 'core/about.html')
@@ -14,8 +15,9 @@ def register_view(request):#регистрация пользователя
         password = request.POST.get('password')
         username = request.POST.get('username')
         if User.objects.filter(username=username).exists():
-            return HttpResponse('имя занято,даун')#Проверить, нет ли такого пользователя
-        else:
+            messages.error(request,'ошибка реализации вашей идеи')
+            return render(request, 'core/register_view.html')
+        else: #если нет пользователя то пересылает на его создание
             create_user = User.objects.create_user(username=username, password=password)
             return redirect('products:home')
     else:
