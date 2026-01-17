@@ -42,8 +42,6 @@ class Wishlist(models.Model):  # Избранное
 class Cart(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
-    # name поле убрал - обычно у корзины нет имени
-
     def __str__(self):
         return f'Корзина пользователя {self.user.username}'
 
