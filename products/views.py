@@ -10,8 +10,8 @@ def home(request):
     return render(request, 'products/home.html', {'products': products})
 
 def product_detail(request,product_id):
-     product_dt= Product.objects.get(id=product_id)
-     return render(request, 'products/product_detail.html', {'product': product_dt})
+     product= Product.objects.get(id=product_id)
+     return render(request, 'products/product_detail.html', {'product': product})
 
 @login_required
 def cartitem(request,product_id):
