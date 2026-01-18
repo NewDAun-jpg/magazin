@@ -4,13 +4,13 @@ from django.shortcuts import render
 from django.shortcuts import redirect
 from django.contrib import messages
 
-def about(request):
+def about(request):#страница 'о нас'
     return render(request, 'core/about.html')
 
-def contact(request):
+def contact(request):#страница 'контакты'
     return render(request, 'core/contact.html')
 
-def register_view(request):#регистрация пользователя
+def register_view(request):#регистрация пользователей
     if request.method == 'POST':
         password = request.POST.get('password')
         username = request.POST.get('username')
@@ -23,5 +23,5 @@ def register_view(request):#регистрация пользователя
     else:
         return render(request, 'core/register_view.html')
 
-def login_view(request):
+def login_view(request):#страница 'профиль'
     return render(request, 'core/login.html')

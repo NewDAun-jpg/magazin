@@ -1,4 +1,4 @@
-from django.contrib import admin
+from django.contrib import admin 
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
@@ -11,6 +11,6 @@ urlpatterns = [
     path('products/', include('products.urls'))
 ]
 
-if settings.DEBUG:
+if settings.DEBUG:#настройка для полноценной работы изображений для продуктов
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
