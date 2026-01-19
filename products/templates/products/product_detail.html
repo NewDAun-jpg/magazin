@@ -1,29 +1,29 @@
-{% extends 'products/base.html' %}
+{% extends 'core/base.html' %}
 
 {% block title %}{{ product.name }}{% endblock %}
 
 {% block content %}
-    <h1>{{ product.name }}</h1>
-
-    <!-- КУБИК "ФОТОГРАФИЯ" -->
+<div class="row">
+  <div class="col-md-6">
     {% if product.image %}
-        {# Показываем фотографию #}
-        <img src="{{ product.image.url }}"
-             alt="{{ product.name }}"
-             width="400"
-             style="border: 2px solid #ddd; border-radius: 10px;">
-    {% else %}
-        {# Если нет — показываем сообщение #}
-        <div style="background: #f5f5f5; padding: 20px; text-align: center;">
-            <p>📷 Фотография скоро будет добавлена!</p>
-        </div>
+    <img src="{{ product.image.url }}" class="img-fluid rounded" alt="{{ product.name }}">
     {% endif %}
+  </div>
+  <div class="col-md-6">
+    <h1>{{ product.name }}</h1>
+    <p class="lead">{{ product.price }} ₽</p>
+    <p>{{ product.description }}</p>
 
-    <p>💰 Цена: {{ product.price }} руб.</p>
-    <p>📝 {{ product.description }}</p>
+    <form action="{% url 'products:cart_item' product.id %}" method="post" class="mt-4">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-success btn-lg">
+        Добавить в корзину
+      </button>
+    </form>
 
-    <!-- Кубик "кнопка назад" -->
-    <a href="{% url 'home' %}" style="display: inline-block; padding: 10px 20px; background: #007bff; color: white; text-decoration: none; border-radius: 5px;">
-        ← Назад к списку товаров
+    <a href="{% url 'products:home' %}" class="btn btn-outline-secondary mt-3">
+      ← Назад к каталогу
     </a>
+  </div>
+</div>
 {% endblock %}

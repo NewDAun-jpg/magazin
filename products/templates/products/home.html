@@ -1,21 +1,26 @@
-<!-- Пример структуры, которую нужно проверить в своём шаблоне -->
-{% extends 'products/base.html' %}
+{% extends 'core/base.html' %}
 
-{% block title %}Главная страница{% endblock %}
+{% block title %}Товары{% endblock %}
 
 {% block content %}
-    <h1>Наши товары</h1>
+<h1 class="mb-4">Все товары</h1>
 
-    <!-- Цикл по товарам -->
-    {% for product in products %}
-        <div>
-            <!-- Название товара (можно как ссылку) -->
-            <a href="{% url 'product_detail' product.id %}">{{ product.name }}</a>
-            <!-- Цена -->
-            <span>{{ product.price }} руб.</span>
-        </div>
-    {% empty %}
-        <!-- Если товаров нет -->
-        <p>Товаров пока нет.</p>
-    {% endfor %}
+<div class="row">
+  {% for product in products %}
+  <div class="col-md-4 mb-4">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">{{ product.name }}</h5>
+        <p class="card-text">{{ product.description|truncatechars:100 }}</p>
+        <p class="text-primary fw-bold">{{ product.price }} ₽</p>
+        <a href="{% url 'products:product_detail' product.id %}" class="btn btn-primary">
+          Подробнее
+        </a>
+      </div>
+    </div>
+  </div>
+  {% empty %}
+  <p class="text-muted">Товаров пока нет</p>
+  {% endfor %}
+</div>
 {% endblock %}

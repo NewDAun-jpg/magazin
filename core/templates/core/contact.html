@@ -1,8 +1,12 @@
-{% extends 'products/base.html' %}
+{% extends 'core/base.html' %}
 
-{% block title %} Контакты {% endblock %}
+{% block title %}Контакты{% endblock %}
 
 {% block content %}
-    <h1>Контакты </h1>
-    <p>тут будут все номера контактов</p>
-{%endblock%}
+<h1 class="mb-4">Контакты</h1>
+<ul class="list-unstyled">
+  <li class="mb-2"><strong>Телефон:</strong> +7 (999) 123-45-67</li>
+  <li class="mb-2"><strong>Email:</strong> info@myshop.ru</li>
+  <li class="mb-2"><strong>Адрес:</strong> Москва, ул. Примерная, д. 1</li>
+</ul>
+{% endblock %}
