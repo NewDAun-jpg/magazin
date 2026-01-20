@@ -21,11 +21,6 @@ class Product(models.Model):#главный класс
     def __str__(self):
         return f'{self.name} (ID:{self.id})'  # Лучше показывать имя продукта
 
-
-class UniqueUser(models.Model):  #Профиль пользователя
-    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
-    age = models.PositiveIntegerField(null=True, blank=True)
-
     def __str__(self):
         return f'{self.user.username}'
 
