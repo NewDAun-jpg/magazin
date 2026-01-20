@@ -21,6 +21,9 @@ def cartitem(request,product_id):#корзина
     else:
         return HttpResponse(status=503)
 
+def delivery_detail(request):
+    return render(request, 'products/delivery_detail.html')
+
 
 
 

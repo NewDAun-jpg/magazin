@@ -1,0 +1,36 @@
+{% extends 'products/base.html' %}
+
+{% block title %}Доставка и оплата | MyShop{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mb-4">Доставка и оплата</h1>
+
+    <div class="row">
+        <div class="col-md-6 mb-4">
+            <h3><i class="bi bi-truck"></i> Доставка</h3>
+            <ul>
+                <li>По подвалу — 290 ₽ (1-2 дня)</li>
+                <li>По притонам — от 390 ₽ (3-7 дней)</li>
+                <li>Самовывоз из пункта выдачи — бесплатно(но это не точно)</li>
+            </ul>
+            <p>После оформления заказа с вами свяжется менеджер.</p>
+        </div>
+
+        <div class="col-md-6 mb-4">
+            <h3><i class="bi bi-credit-card"></i> Оплата</h3>
+            <ul>
+                <li>Картой онлайн при оформлении</li>
+                <li>Наличными курьеру</li>
+                <li>СБП (Система быстрых платежей)</li>
+            </ul>
+            <p>Мы не храним данные вашей карты.</p>
+        </div>
+    </div>
+
+    <div class="alert alert-info">
+        <h4><i class="bi bi-info-circle"></i> Важно!</h4>
+        <p>Возврат товара возможен в течение 14 дней после получения.</p>
+    </div>
+</div>
+{% endblock %}
