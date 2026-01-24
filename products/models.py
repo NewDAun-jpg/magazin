@@ -16,13 +16,8 @@ class Product(models.Model):#главный класс
     category = models.ForeignKey(Category, on_delete=models.PROTECT)
     image = models.ImageField(upload_to='products/', null=True, blank=True)
 
-    
-
     def __str__(self):
-        return f'{self.name} (ID:{self.id})'  # Лучше показывать имя продукта
-
-    def __str__(self):
-        return f'{self.user.username}'
+        return f'{self.name}'  # показывать  продукт
 
 
 class Wishlist(models.Model):  # Избранное/лист желания
