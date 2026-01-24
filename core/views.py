@@ -23,5 +23,3 @@ def register_view(request):#регистрация пользователей
     else:
         return render(request, 'core/register_view.html')
 
-def login_view(request):#страница 'профиль'
-    return render(request, 'core/login.html')
