@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.shortcuts import redirect
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 def about(request):#страница 'о нас'
     return render(request, 'core/about.html')
@@ -22,4 +23,9 @@ def register_view(request):#регистрация пользователей
             return redirect('products:home')
     else:
         return render(request, 'core/register_view.html')
-
+@login_required
+def profile(request):
+    if request.method == 'POST':
+        #если пользователь решает изменить данные
+            #
+        pass
