@@ -26,6 +26,5 @@ def register_view(request):#регистрация пользователей
 @login_required
 def profile(request):
     if request.method == 'POST':
-        #если пользователь решает изменить данные
-            #
+
         pass
