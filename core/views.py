@@ -4,6 +4,7 @@ from django.shortcuts import render
 from django.shortcuts import redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from .models import Profile
 
 def about(request):#страница 'о нас'
     return render(request, 'core/about.html')
@@ -15,7 +16,7 @@ def register_view(request):#регистрация пользователей
     if request.method == 'POST':
         password = request.POST.get('password')
         username = request.POST.get('username')
-        if User.objects.filter(username=username).exists():
+        if User.objects.filter(username=username).exists(): #не допустить повтора логина
             messages.error(request,'ошибка реализации вашей идеи')
             return render(request, 'core/register_view.html')
         else: #если нет пользователя то пересылает на его создание
@@ -26,4 +27,6 @@ def register_view(request):#регистрация пользователей
 @login_required
 def profile(request):
     if request.method == 'POST':
-        pass
+        profile = request.user.profile
+        return render(request, 'core/profile.html', {'profile': profile})
+
