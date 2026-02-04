@@ -24,6 +24,7 @@ def register_view(request):#регистрация пользователей
             return redirect('products:home')
     else:
         return render(request, 'core/register_view.html')
+
 @login_required
 def profile(request):
     if request.method == 'POST':
