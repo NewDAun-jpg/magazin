@@ -26,8 +26,13 @@ def register_view(request):#регистрация пользователей
         return render(request, 'core/register_view.html')
 
 @login_required
-def profile(request):
+def profile(request, profile):
     if request.method == 'POST':
-        profile = request.user.profile
-        return render(request, 'core/profile.html', {'profile': profile})
+        request.POST.get('username')
+        request.POST.get('email')
+        profile.username = request.POST.get('username')
+        profile.email = request.POST.get('email')
+        profile.save()
+        #profile = request.user.profile
+        #return render(request, 'core/profile.html', {'profile': profile})
 
