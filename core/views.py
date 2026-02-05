@@ -34,5 +34,5 @@ def profile(request):
         user.username = request.POST.get('username')
         user.email = request.POST.get('email')
         user.save()
-        return render(request, 'core/profile.html', {'profile': profile})
+        return redirect('profile')
 
