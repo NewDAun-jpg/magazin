@@ -25,14 +25,26 @@ def register_view(request):#регистрация пользователей
     else:
         return render(request, 'core/register_view.html')
 
+
+from django.contrib import messages
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+
+
 @login_required
 def profile(request):
     if request.method == 'POST':
-        request.POST.get('username')
-        request.POST.get('email')
+        # Получаем новые данные из формы
+        new_username = request.POST.get('username')
+        new_email = request.POST.get('email')
+        # Обновляем данные текущего пользователя
         user = request.user
-        user.username = request.POST.get('username')
-        user.email = request.POST.get('email')
+        user.username = new_username
+        user.email = new_email
         user.save()
-        return redirect('profile')
+        # Перенаправляем на ту же страницу (чтобы избежать повторной отправки формы)
+        return redirect('profile')  # Убедитесь, что у вас есть URL с именем 'profile'
+
+    # Для GET запроса показываем форму с текущими данными
+    return render(request, 'core/profile.html', {'user': request.user})
 
