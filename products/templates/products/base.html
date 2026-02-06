@@ -39,6 +39,10 @@
                 <a class="nav-link" href="{% url 'products:delivery' %}">
                     <i class="bi bi-truck"></i> Доставка
                 </a>
+                <a class="nav-link" href="{% url 'core:profile' %}">
+                    <i class="bi bi-truck"></i> Профиль
+                </a>
+
 
                 {% if user.is_authenticated %}
                     <span class="nav-link disabled">

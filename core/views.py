@@ -42,9 +42,8 @@ def profile(request):
         user.username = new_username
         user.email = new_email
         user.save()
-        # Перенаправляем на ту же страницу (чтобы избежать повторной отправки формы)
-        return redirect('profile')  # Убедитесь, что у вас есть URL с именем 'profile'
-
+        # Перенаправляем на ту же страницу
+        return redirect('profile')  #
     # Для GET запроса показываем форму с текущими данными
     return render(request, 'core/profile.html', {'user': request.user})
 
