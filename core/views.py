@@ -16,6 +16,7 @@ def register_view(request):#регистрация пользователей
     if request.method == 'POST':
         password = request.POST.get('password')
         username = request.POST.get('username')
+        email = request.POST.get('email')
         if User.objects.filter(username=username).exists(): #не допустить повтора логина
             messages.error(request,'ошибка реализации вашей идеи')
             return render(request, 'core/register_view.html')
@@ -43,7 +44,7 @@ def profile(request):
         user.email = new_email
         user.save()
         # Перенаправляем на ту же страницу
-        return redirect('profile')  #
+        return redirect('core:profile')  #
     # Для GET запроса показываем форму с текущими данными
     return render(request, 'core/profile.html', {'user': request.user})
 
