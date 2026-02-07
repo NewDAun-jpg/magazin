@@ -27,13 +27,9 @@ def register_view(request):#регистрация пользователей
         return render(request, 'core/register_view.html')
 
 
-from django.contrib import messages
-from django.shortcuts import render, redirect
-from django.contrib.auth.decorators import login_required
-
 
 @login_required
-def profile(request):
+def profile(request):#профиль
     if request.method == 'POST':
         # Получаем новые данные из формы
         new_username = request.POST.get('username')
