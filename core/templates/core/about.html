@@ -1,11 +1,66 @@
-{% extends 'core/base.html' %}
+{% extends 'products/base.html' %}
 
-{% block title %}О нас{% endblock %}
+{% block title %}О нас | MyShop{% endblock %}
 
 {% block content %}
-<div class="text-center">
-  <h1 class="mb-4">О нашем BEST магазине</h1>
-  <p class="lead">МЫ продаем лучший постпанк.</p>
-  <p>Работаем с 1096 года, дорожим каждым клиентом.</p>
+<div class="row">
+    <div class="col-lg-8 mx-auto">
+        <h1 class="mb-4">О нашем магазине</h1>
+
+        <div class="card mb-4">
+            <div class="card-body">
+                <h2 class="h4 mb-3"><i class="bi bi-shop me-2"></i>Наша история</h2>
+                <p>MyShop был основан в 2024 году с целью предоставить покупателям качественные товары по доступным ценам. Начиная с небольшого онлайн-магазина, мы выросли в надежного партнера для тысяч клиентов по всей России.</p>
+                <p>Мы верим, что покупки должны приносить радость, а процесс выбора и заказа — быть простым и удобным.</p>
+            </div>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col-md-4 mb-3">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center">
+                        <i class="bi bi-award text-primary mb-3" style="font-size: 2.5rem;"></i>
+                        <h5 class="card-title">Качество</h5>
+                        <p class="card-text">Все товары проходят тщательный отбор и проверку качества.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 mb-3">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center">
+                        <i class="bi bi-truck text-primary mb-3" style="font-size: 2.5rem;"></i>
+                        <h5 class="card-title">Быстрая доставка</h5>
+                        <p class="card-text">Доставляем заказы по всей России в кратчайшие сроки.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 mb-3">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center">
+                        <i class="bi bi-headset text-primary mb-3" style="font-size: 2.5rem;"></i>
+                        <h5 class="card-title">Поддержка 24/7</h5>
+                        <p class="card-text">Наша служба поддержки всегда готова помочь вам.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <h2 class="h4 mb-3"><i class="bi bi-bullseye me-2"></i>Наша миссия</h2>
+                <p>Мы стремимся сделать онлайн-шоппинг доступным, удобным и приятным для каждого. Наша цель — не просто продавать товары, а создавать доверительные отношения с клиентами, предлагая лучший сервис на рынке.</p>
+
+                <h3 class="h5 mt-4">Наши ценности:</h3>
+                <ul>
+                    <li>Честность и прозрачность</li>
+                    <li>Клиентоориентированность</li>
+                    <li>Постоянное развитие</li>
+                    <li>Ответственность за качество</li>
+                </ul>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}
