@@ -3,34 +3,124 @@
 {% block title %}Доставка и оплата | MyShop{% endblock %}
 
 {% block content %}
-<div class="container">
-    <h1 class="mb-4">Доставка и оплата</h1>
+<div class="row">
+    <div class="col-lg-10 mx-auto">
+        <h1 class="mb-4">Доставка и оплата</h1>
 
-    <div class="row">
-        <div class="col-md-6 mb-4">
-            <h3><i class="bi bi-truck"></i> Доставка</h3>
-            <ul>
-                <li>По подвалу — 290 ₽ (1-2 дня)</li>
-                <li>По притонам — от 390 ₽ (3-7 дней)</li>
-                <li>Самовывоз из пункта выдачи — бесплатно(но это не точно)</li>
-            </ul>
-            <p>После оформления заказа с вами свяжется менеджер.</p>
+        <div class="row mb-5">
+            <div class="col-md-6 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h2 class="h4 card-title"><i class="bi bi-truck text-primary me-2"></i>Доставка</h2>
+
+                        <h3 class="h5 mt-4">По Москве</h3>
+                        <ul>
+                            <li>Курьерская доставка: 290 ₽ (1-2 дня)</li>
+                            <li>Бесплатно при заказе от 3000 ₽</li>
+                            <li>Самовывоз из пункта выдачи: бесплатно</li>
+                        </ul>
+
+                        <h3 class="h5 mt-4">По России</h3>
+                        <ul>
+                            <li>Курьерская доставка: от 390 ₽ (3-7 дней)</li>
+                            <li>Почта России: от 250 ₽ (5-14 дней)</li>
+                        </ul>
+
+                        <div class="alert alert-info mt-4">
+                            <i class="bi bi-info-circle me-2"></i>
+                            После оформления заказа с вами свяжется менеджер для уточнения деталей доставки.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h2 class="h4 card-title"><i class="bi bi-credit-card text-primary me-2"></i>Оплата</h2>
+
+                        <h3 class="h5 mt-4">Онлайн-оплата</h3>
+                        <ul>
+                            <li>Банковской картой (Visa, MasterCard, МИР)</li>
+                            <li>Через Apple Pay / Google Pay</li>
+                            <li>СБП (Система быстрых платежей)</li>
+                        </ul>
+
+                        <h3 class="h5 mt-4">Оплата при получении</h3>
+                        <ul>
+                            <li>Наличными курьеру</li>
+                            <li>Картой курьеру (терминал)</li>
+                        </ul>
+
+                        <div class="alert alert-success mt-4">
+                            <i class="bi bi-shield-check me-2"></i>
+                            Мы не храним данные вашей карты. Все платежи защищены по стандарту PCI DSS.
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <div class="col-md-6 mb-4">
-            <h3><i class="bi bi-credit-card"></i> Оплата</h3>
-            <ul>
-                <li>Картой онлайн при оформлении</li>
-                <li>Наличными курьеру</li>
-                <li>СБП (Система быстрых платежей)</li>
-            </ul>
-            <p>Мы не храним данные вашей карты.</p>
-        </div>
-    </div>
+        <div class="card mb-4">
+            <div class="card-body">
+                <h2 class="h4 card-title"><i class="bi bi-clock-history text-primary me-2"></i>Сроки доставки</h2>
+                <p>Сроки доставки зависят от вашего региона и выбранного способа доставки:</p>
 
-    <div class="alert alert-info">
-        <h4><i class="bi bi-info-circle"></i> Важно!</h4>
-        <p>Возврат товара возможен в течение 14 дней после получения.</p>
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Регион</th>
+                                <th>Способ доставки</th>
+                                <th>Срок</th>
+                                <th>Стоимость</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Москва</td>
+                                <td>Курьерская</td>
+                                <td>1-2 дня</td>
+                                <td>290 ₽ (бесплатно от 3000 ₽)</td>
+                            </tr>
+                            <tr>
+                                <td>Московская область</td>
+                                <td>Курьерская</td>
+                                <td>2-3 дня</td>
+                                <td>390 ₽</td>
+                            </tr>
+                            <tr>
+                                <td>Другие регионы</td>
+                                <td>Почта России</td>
+                                <td>5-14 дней</td>
+                                <td>от 250 ₽</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <h2 class="h4 card-title"><i class="bi bi-arrow-left-right text-primary me-2"></i>Возврат товара</h2>
+                <p>Вы можете вернуть товар в течение 14 дней после получения, если:</p>
+                <ul>
+                    <li>Товар не был в употреблении</li>
+                    <li>Сохранены все ярлыки и бирки</li>
+                    <li>Имеется товарный чек или иное подтверждение покупки</li>
+                </ul>
+
+                <div class="alert alert-warning">
+                    <i class="bi bi-exclamation-triangle me-2"></i>
+                    Товары надлежащего качества, не подлежащие обмену и возврату, указаны в соответствии с законодательством РФ.
+                </div>
+
+                <a href="{% url 'core:contact' %}" class="btn btn-outline-primary">
+                    <i class="bi bi-question-circle me-2"></i>Задать вопрос о доставке
+                </a>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}
