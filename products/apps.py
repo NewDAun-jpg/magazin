@@ -6,7 +6,7 @@ class ProductsConfig(AppConfig):
 
 class UserConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'user'
+    name = 'User'
 
     def ready(self):
-        import user.signals
+        import User.signals
