@@ -48,6 +48,7 @@ def profile(request):#профиль
 
 def login_view(request):
     if request.method == 'POST':
+        print(f"Метод запроса: {request.method}")
         username = request.POST.get('username')
         password = request.POST.get('password')
         user = authenticate(request, username=username, password=password)
@@ -55,7 +56,9 @@ def login_view(request):
             login(request, user)
             return redirect('products:home')
         else:
-            return render(request, 'core/login_view.html')
+            messages.error(request,'ошибка')
+    else:
+        return render(request, 'core/login_view.html')
 
 
 
