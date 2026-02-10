@@ -58,7 +58,7 @@ def login_view(request):
         else:
             messages.error(request,'ошибка')
     else:
-        return render(request, 'core/login_view.html')
+        return render(request, 'products/home.html')
 
 
 
