@@ -1,12 +1,14 @@
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render
+from django.core.paginator import Paginator
 
 from .models import Product
 
 
 def home(request):#главная страница
     products = Product.objects.all()
+    paginator = Paginator(products, 10)
     return render(request, 'products/home.html', {'products': products})
 
 def product_detail(request,product_id):#
