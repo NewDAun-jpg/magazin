@@ -9,7 +9,9 @@ from .models import Product
 def home(request):#главная страница
     products = Product.objects.all()
     paginator = Paginator(products, 10)
-    return render(request, 'products/home.html', {'products': products})
+    page = request.GET.get('page')
+    page_obj = paginator.get_page(page)
+    return render(request, 'products/home.html', {'page_obj': page_obj})
 
 def product_detail(request,product_id):#
      product= Product.objects.get(id=product_id)
