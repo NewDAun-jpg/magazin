@@ -1,94 +1,33 @@
 {% extends 'products/base.html' %}
-{% load static %}
 
-{% block title %}{{ product.name }} | MyShop{% endblock %}
+{% block title %}{{ product.name }}{% endblock %}
 
 {% block content %}
 <div class="row">
-    <div class="col-lg-6">
+    <div class="col-md-6">
         {% if product.image %}
-        <img src="{{ product.image.url }}" class="img-fluid rounded shadow mb-4" alt="{{ product.name }}">
+        <img src="{{ product.image.url }}" class="img-fluid rounded" alt="{{ product.name }}">
         {% else %}
-        <div class="bg-light rounded d-flex align-items-center justify-content-center mb-4" style="height: 400px;">
-            <i class="bi bi-image text-muted" style="font-size: 5rem;"></i>
+        <div class="bg-light d-flex align-items-center justify-content-center" style="height: 300px;">
+            <i class="bi bi-image fs-1 text-muted"></i>
         </div>
         {% endif %}
     </div>
+    <div class="col-md-6">
+        <h1>{{ product.name }}</h1>
+        <p class="lead">{{ product.description }}</p>
+        <h3 class="text-primary">{{ product.price }} ₽</h3>
+        <p class="text-muted">Категория: {{ product.category.name }}</p>
 
-    <div class="col-lg-6">
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{% url 'products:home' %}">Главная</a></li>
-                <li class="breadcrumb-item"><a href="{% url 'products:home' %}?category={{ product.category.id }}">{{ product.category.name }}</a></li>
-                <li class="breadcrumb-item active" aria-current="page">{{ product.name }}</li>
-            </ol>
-        </nav>
-
-        <h1 class="mb-3">{{ product.name }}</h1>
-
-        <div class="d-flex align-items-center mb-3">
-            <span class="badge bg-primary me-2">{{ product.category.name }}</span>
-            <span class="text-muted">Артикул: {{ product.id }}</span>
-        </div>
-
-        <h2 class="text-primary mb-4">{{ product.price }} ₽</h2>
-
-        <div class="mb-4">
-            <h4>Описание</h4>
-            <p>{{ product.description }}</p>
-        </div>
-
-        <div class="row g-3 mb-4">
-            <div class="col-md-6">
-                <form method="post" action="{% url 'products:cart_item' product.id %}">
-                    {% csrf_token %}
-                    <div class="input-group">
-                        <button class="btn btn-outline-secondary" type="button" onclick="decrementQuantity()">
-                            <i class="bi bi-dash"></i>
-                        </button>
-                        <input type="number" id="quantity" name="quantity" class="form-control text-center" value="1" min="1" max="10">
-                        <button class="btn btn-outline-secondary" type="button" onclick="incrementQuantity()">
-                            <i class="bi bi-plus"></i>
-                        </button>
-                    </div>
-                    </div>
-                <div class="col-md-6">
-                    <button type="submit" class="btn btn-primary btn-lg w-100">
-                        <i class="bi bi-cart-plus me-2"></i>Добавить в корзину
-                    </button>
-                </div>
-            </form>
-        </div>
-
-        <div class="card mb-4">
-            <div class="card-body">
-                <h5 class="card-title"><i class="bi bi-truck me-2"></i>Доставка</h5>
-                <p class="card-text">Бесплатная доставка по Москве при заказе от 3000₽. Срок доставки: 1-2 дня.</p>
-                <a href="{% url 'products:delivery' %}" class="btn btn-outline-primary">Подробнее о доставке</a>
+        <form method="post" action="{% url 'products:cart_item' product.id %}">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="quantity" class="form-label">Количество</label>
+                <input type="number" name="quantity" id="quantity" class="form-control" value="1" min="1">
             </div>
-        </div>
-
-        <a href="{% url 'products:home' %}" class="btn btn-outline-secondary">
-            <i class="bi bi-arrow-left me-1"></i>Назад к каталогу
-        </a>
+            <button type="submit" class="btn btn-success btn-lg">Добавить в корзину</button>
+        </form>
+        <a href="{% url 'products:home' %}" class="btn btn-outline-secondary mt-3">Назад к каталогу</a>
     </div>
 </div>
-
-<script>
-function incrementQuantity() {
-    const input = document.getElementById('quantity');
-    let value = parseInt(input.value);
-    if (value < 10) {
-        input.value = value + 1;
-    }
-}
-
-function decrementQuantity() {
-    const input = document.getElementById('quantity');
-    let value = parseInt(input.value);
-    if (value > 1) {
-        input.value = value - 1;
-    }
-}
-</script>
 {% endblock %}

@@ -1,154 +1,53 @@
 {% extends 'products/base.html' %}
-{% load static %}
 
-{% block title %}Профиль | MyShop{% endblock %}
+{% block title %}Профиль{% endblock %}
 
 {% block content %}
+<h1>Профиль</h1>
 <div class="row">
-    <div class="col-lg-4">
-        <div class="card mb-4">
+    <div class="col-md-4">
+        <div class="card">
             <div class="card-body text-center">
                 {% if user.profile.avatar %}
-                <img src="{{ user.profile.avatar.url }}" alt="Аватар" class="rounded-circle img-fluid" style="width: 150px; height: 150px; object-fit: cover;">
+                <img src="{{ user.profile.avatar.url }}" class="rounded-circle img-fluid" style="width: 150px; height: 150px; object-fit: cover;">
                 {% else %}
-                <div class="rounded-circle bg-primary d-inline-flex align-items-center justify-content-center mb-3"
-                     style="width: 150px; height: 150px;">
-                    <span class="text-white display-4">{{ user.username|first|upper }}</span>
+                <div class="bg-secondary rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 150px; height: 150px;">
+                    <span class="display-4 text-white">{{ user.username|first|upper }}</span>
                 </div>
                 {% endif %}
-
-                <h2 class="my-3">{{ user.username }}</h2>
-                <p class="text-muted mb-1">Пользователь с {{ user.date_joined|date:"d.m.Y" }}</p>
-
-                <div class="d-flex justify-content-center mb-2 mt-3">
-                    <button type="button" class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#avatarModal">
-                        <i class="bi bi-camera me-1"></i> Сменить фото
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <div class="card mb-4">
-            <div class="card-body">
-                <h4 class="h5 mb-3">Статистика</h4>
-                <ul class="list-unstyled mb-0">
-                    <li class="mb-2">
-                        <i class="bi bi-cart me-2 text-primary"></i>
-                        <strong>Заказы:</strong> 0
-                    </li>
-                    <li class="mb-2">
-                        <i class="bi bi-star me-2 text-primary"></i>
-                        <strong>Отзывы:</strong> 0
-                    </li>
-                    <li>
-                        <i class="bi bi-heart me-2 text-primary"></i>
-                        <strong>Избранное:</strong> 0 товаров
-                    </li>
-                </ul>
+                <h3 class="mt-3">{{ user.username }}</h3>
+                <p>{{ user.email }}</p>
             </div>
         </div>
     </div>
-
-    <div class="col-lg-8">
-        <div class="card mb-4">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">Личные данные</div>
             <div class="card-body">
-                <h4 class="h5 mb-3">Основная информация</h4>
                 <form method="post" enctype="multipart/form-data">
                     {% csrf_token %}
-
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label">Имя пользователя</label>
-                            <input type="text" class="form-control" value="{{ user.username }}" disabled>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label">Email</label>
-                            <input type="email" class="form-control" value="{{ user.email }}" disabled>
-                        </div>
-                    </div>
-
                     <div class="mb-3">
                         <label class="form-label">Имя</label>
-                        <input type="text" class="form-control" name="first_name" value="{{ user.first_name }}">
+                        <input type="text" name="first_name" class="form-control" value="{{ user.first_name }}">
                     </div>
-
                     <div class="mb-3">
                         <label class="form-label">Фамилия</label>
-                        <input type="text" class="form-control" name="last_name" value="{{ user.last_name }}">
+                        <input type="text" name="last_name" class="form-control" value="{{ user.last_name }}">
                     </div>
-
-                    <button type="submit" class="btn btn-primary">
-                        <i class="bi bi-save me-1"></i> Сохранить изменения
-                    </button>
-                </form>
-            </div>
-        </div>
-
-        <div class="card mb-4">
-            <div class="card-body">
-                <h4 class="h5 mb-3">Контактная информация</h4>
-                <form method="post">
-                    {% csrf_token %}
-
                     <div class="mb-3">
                         <label class="form-label">Телефон</label>
-                        <input type="tel" class="form-control" name="phone"
-                               value="{{ user.profile.phone|default:'' }}" placeholder="+7 (999) 123-45-67">
+                        <input type="text" name="phone" class="form-control" value="{{ user.profile.phone|default:'' }}">
                     </div>
-
                     <div class="mb-3">
                         <label class="form-label">Адрес</label>
-                        <textarea class="form-control" name="address" rows="3"
-                                  placeholder="Город, улица, дом, квартира">{{ user.profile.address|default:'' }}</textarea>
+                        <textarea name="address" class="form-control">{{ user.profile.address|default:'' }}</textarea>
                     </div>
-
-                    <button type="submit" class="btn btn-primary">
-                        <i class="bi bi-save me-1"></i> Сохранить контакты
-                    </button>
-                </form>
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-body">
-                <h4 class="h5 mb-3">Безопасность</h4>
-                <div class="d-grid gap-2">
-                    <a href="#" class="btn btn-outline-primary">
-                        <i class="bi bi-key me-1"></i> Сменить пароль
-                    </a>
-                    <form method="post" action="{% url 'core:login_view' %}" class="d-grid">
-                        {% csrf_token %}
-                        <button type="submit" class="btn btn-outline-danger">
-                            <i class="bi bi-box-arrow-right me-1"></i> Выйти из аккаунта
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Modal для смены аватара -->
-<div class="modal fade" id="avatarModal" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Сменить аватар</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                <form method="post" enctype="multipart/form-data" id="avatarForm">
-                    {% csrf_token %}
                     <div class="mb-3">
-                        <label class="form-label">Выберите изображение</label>
-                        <input type="file" class="form-control" name="avatar" accept="image/*">
-                        <div class="form-text">Рекомендуемый размер: 500x500 пикселей.</div>
+                        <label class="form-label">Аватар</label>
+                        <input type="file" name="avatar" class="form-control">
                     </div>
+                    <button type="submit" class="btn btn-primary">Сохранить</button>
                 </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
-                <button type="submit" form="avatarForm" class="btn btn-primary">Сохранить</button>
             </div>
         </div>
     </div>

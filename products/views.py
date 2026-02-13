@@ -28,6 +28,10 @@ def cartitem(request,product_id):#корзина
 def delivery_detail(request):
     return render(request, 'products/delivery_detail.html')
 
+def Wishlist(request):
+    pass
+
+
 
 
 
