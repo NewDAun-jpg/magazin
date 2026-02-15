@@ -22,11 +22,17 @@ class Product(models.Model):#главный класс
 
 class Wishlist(models.Model):  # Избранное/лист желания
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    name = models.CharField(max_length=100)
     products = models.ManyToManyField(Product)
+    quantity = models.PositiveIntegerField(default=1)
 
     def __str__(self):
         return f'Избранное {self.user.username}: {self.name}'
+
+class Wishlistitem(models.Model):
+    wishlist = models.ForeignKey(Wishlist, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(default=1)
+
 
 
 class Cart(models.Model):#корзина
