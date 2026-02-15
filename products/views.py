@@ -28,8 +28,11 @@ def cartitem(request,product_id):#корзина
 def delivery_detail(request):
     return render(request, 'products/delivery_detail.html')
 
+@login_required
 def Wishlist(request):
-    pass
+    if request.method == 'GET':
+        pass
+
 
 
 
