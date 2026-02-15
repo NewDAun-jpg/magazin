@@ -29,9 +29,25 @@ def delivery_detail(request):
     return render(request, 'products/delivery_detail.html')
 
 @login_required
-def Wishlist(request):
+def add_to_wishlist(request):
     if request.method == 'GET':
-        pass
+        product_id = request.GET.get('product_id')
+        product = Product.objects.get(id=product_id)  # нужно ловить ошибку, если товара нет
+
+        # Пытаемся найти существующую запись
+        wish_item = Wishlist.objects.filter(user=request.user, product=product).first()
+
+
+        if wish_item:
+            # Запись есть — увеличиваем количество
+            wish_item.quantity += 1
+            wish_item.save()
+        else:
+            # Записи нет — создаём новую
+            Wishlist.objects.create(user=request.user, product=product, quantity=1)
+
+        # возращаем старницу
+        return redirect('wishlist_page')
 
 
 
