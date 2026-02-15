@@ -22,7 +22,7 @@ class Product(models.Model):#главный класс
 
 class Wishlist(models.Model):  # Избранное/лист желания
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    products = models.ForeignKey(Product)
+    products = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)
 
     def __str__(self):

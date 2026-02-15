@@ -37,7 +37,6 @@ def add_to_wishlist(request):
         # Пытаемся найти существующую запись
         wish_item = Wishlist.objects.filter(user=request.user, product=product).first()
 
-
         if wish_item:
             # Запись есть — увеличиваем количество
             wish_item.quantity += 1
