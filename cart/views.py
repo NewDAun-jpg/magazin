@@ -6,6 +6,10 @@ from products.models import Product
 
 
 
+@login_required
+def add_cart(request):
+    if request.method == 'GET':
+        
 
 
 
@@ -14,9 +18,13 @@ from products.models import Product
 
 
 @login_required
-def cartitem(request,product_id):#корзина
-    if request.method == "POST":
-        product_obj = Product.objects.get(id=product_id)
-        return render(request, 'products/cart.html')
-    else:
-        return HttpResponse(status=503)
+def change_cart(request,product_id):
+    if request.method == 'GET':
+        pass
+
+
+
+@login_required
+def delet_cart(request):
+    if request.method == 'GET':
+        pass

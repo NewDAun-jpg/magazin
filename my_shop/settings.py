@@ -33,7 +33,6 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    #'django.contrib.sessions',
     'core.apps.CoreConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -46,7 +45,6 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    #'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -130,3 +128,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 LOGOUT_REDIRECT_URL = '/'
+
+# Use the cache for sessions
+SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
+
