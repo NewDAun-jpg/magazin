@@ -14,29 +14,49 @@ def add_cart(request):
         product_id = request.GET.get('product_id') #берем id из бд
         product = Product.objects.get(id=product_id) #проверка на то ли взяли
 
-        usercart
+        #содание корзины для пользователя
+        cart, created = Cart.objects.get_or_create(user=request.user)
+        cartitem = CartItem.objects.filter(cart=cart, product=product).first()
 
-        #проверка на нахождение записи
-        cartitem = CartItem.objects.get(user=request.user, product=product)
-
-
-
-
-
-
-
-
-
+        #добавление в корзину айтемов
+        if cartitem:
+            cartitem.quantity += 1
+            cartitem.save()
+        else:
+            cartitem = CartItem.objects.create(cart=cart, product=product, quantity=1)
 
 
 @login_required
-def change_cart(request,product_id):
-    if request.method == 'GET':
-        pass
+def delete_cart(request):
+    if request.method == 'POST':
+        product_id = request.POST.get('product_id')
+        product = Product.objects.get(id=product_id)
 
+        cart = Cart.objects.get(user=request.user)
+        cartitem = CartItem.objects.filter(cart=cart, product=product)
+
+        if cartitem:
+            cartitem.delete()
 
 
 @login_required
-def delet_cart(request):
-    if request.method == 'GET':
-        pass
+def remove_cart(request):
+    if request.method == 'POST':
+        product_id = request.POST.get('product_id')
+        product = Product.objects.get(id=product_id)
+
+        cart = Cart.objects.get(user=request.user)
+        cartitem = CartItem.objects.filter(cart=cart, product=product).first()
+
+        if cartitem and cartitem.quantity >= 1:
+            cartitem.quantity -= 1
+            cartitem.save()
+        elif cartitem and cartitem.quantity == 0:
+            cartitem.delete()
+
+
+
+
+
+
+
