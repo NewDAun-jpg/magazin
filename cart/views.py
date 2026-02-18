@@ -9,7 +9,7 @@ from .models import CartItem
 
 
 @login_required
-def add_cart(request):
+def add_cart(request):# добавление в корзину товаров + создание корзины у пользователя
     if request.method == 'GET':
         product_id = request.GET.get('product_id') #берем id из бд
         product = Product.objects.get(id=product_id) #проверка на то ли взяли
@@ -27,7 +27,7 @@ def add_cart(request):
 
 
 @login_required
-def delete_cart(request):
+def delete_cart(request): #удаление товара совсем из в корзине
     if request.method == 'POST':
         product_id = request.POST.get('product_id')
         product = Product.objects.get(id=product_id)
@@ -40,7 +40,7 @@ def delete_cart(request):
 
 
 @login_required
-def remove_cart(request):
+def change_quantity_cart(request):# изминение количества товаро в корзине
     if request.method == 'POST':
         product_id = request.POST.get('product_id')
         product = Product.objects.get(id=product_id)
