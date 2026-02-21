@@ -12,8 +12,12 @@ from .models import Profile
 def about(request):#страница 'о нас'
     return render(request, 'core/about.html')
 
+
+
 def contact(request):#страница 'контакты'
     return render(request, 'core/contact.html')
+
+
 
 def register_view(request):#регистрация пользователей
     if request.method == 'POST':
@@ -48,11 +52,13 @@ def profile(request):#профиль
     return render(request, 'core/profile.html', {'user': request.user})
 
 
-def login_view(request):
+def login_view(request):#вход в аккаунт
     if request.method == 'POST':
         print(f"Метод запроса: {request.method}")
+        #запрос имени и пароля
         username = request.POST.get('username')
         password = request.POST.get('password')
+        # проверка что пароль совпадает и имя пользователя
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
@@ -62,7 +68,7 @@ def login_view(request):
     else:
         return render(request, 'products/home.html')
 
-def logout_view(request):
+def logout_view(request):#выход из аккаунтв
     logout(request)
     return redirect('login_view')
 

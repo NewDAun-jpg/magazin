@@ -6,8 +6,8 @@ from .models import Product, Wishlist
 
 
 def home(request):#главная страница
-    products = Product.objects.all()
-    paginator = Paginator(products, 10)
+    products = Product.objects.all() #вызываем все обьекты
+    paginator = Paginator(products, 10) # создаем пагинатор -это разделение на страницы(чтобы не висло)
     page = request.GET.get('page')
     page_obj = paginator.get_page(page)
     return render(request, 'products/home.html', {'page_obj': page_obj})

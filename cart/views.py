@@ -18,7 +18,7 @@ def add_cart(request):# добавление в корзину товаров + 
         cart, created = Cart.objects.get_or_create(user=request.user)
         cartitem = CartItem.objects.filter(cart=cart, product=product).first()
 
-        #добавление в корзину айтемов
+        #добавление в корзину товаров
         if cartitem:
             cartitem.quantity += 1
             cartitem.save()
