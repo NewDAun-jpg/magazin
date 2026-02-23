@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from typing import Any
+
 
 
 class Category(models.Model):#категории
@@ -15,6 +17,10 @@ class Product(models.Model):#главный класс
     description = models.TextField()
     category = models.ForeignKey(Category, on_delete=models.PROTECT)
     image = models.ImageField(upload_to='products/', null=True, blank=True)
+
+    def __init__(self, *args: Any, **kwargs: Any):
+        super().__init__(args, kwargs)
+        self.id = None
 
     def __str__(self):
         return f'{self.name}'  # показывать  продукт

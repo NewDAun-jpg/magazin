@@ -18,3 +18,5 @@ class CartItem(models.Model):#товар в корзине(дословно)
 
 
 
+
+
