@@ -9,4 +9,4 @@ def create_user_profile(sender, instance, created, **kwargs):
     #created - True если объект создан, False если обновлен
     #**kwargs - дополнительные аргументы
     if created:
-        User.objects.create(username=instance.username, email=instance.email)
+        User.objects.get_or_create(username=instance.username, email=instance.email)

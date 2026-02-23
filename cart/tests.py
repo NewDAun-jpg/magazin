@@ -17,7 +17,7 @@ class CartTestAdd(TestCase):
         self.category = Category.objects.create(name='Category')
         self.product = Product.objects.create(
             name='Tovar',
-            price=5.30,
+            price=500,
             description='Tovar',
             category=self.category
         )
