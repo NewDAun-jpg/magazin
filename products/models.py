@@ -13,9 +13,9 @@ class Category(models.Model):#категории
 
 class Product(models.Model):#главный класс
     name = models.CharField(max_length=100)
-    price = models.DecimalField(decimal_places=2, max_digits=10)
+    price = models.DecimalField(decimal_places=2, max_digits=10, default=0.00)
     description = models.TextField()
-    category = models.ForeignKey(Category, on_delete=models.PROTECT)
+    category = models.ForeignKey(Category, on_delete=models.PROTECT,null=True, blank=True)
     image = models.ImageField(upload_to='products/', null=True, blank=True)
 
     def __init__(self, *args: Any, **kwargs: Any):
