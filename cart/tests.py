@@ -24,3 +24,4 @@ class CartTestAdd(TestCase):
         cart_item = CartItem.objects.filter(cart__user=self.user, product=self.product).first()
         self.assertIsNotNone(cart_item)
         self.assertEqual(cart_item.quantity, 1)
+        #тест не работает по ошибке
