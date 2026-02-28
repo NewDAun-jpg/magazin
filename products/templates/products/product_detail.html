@@ -1,33 +1,23 @@
 {% extends 'products/base.html' %}
 
-{% block title %}{{ product.name }}{% endblock %}
+{% block title %}{{ product.name }} - Мой магазин{% endblock %}
 
 {% block content %}
-<div class="row">
-    <div class="col-md-6">
-        {% if product.image %}
-        <img src="{{ product.image.url }}" class="img-fluid rounded" alt="{{ product.name }}">
-        {% else %}
-        <div class="bg-light d-flex align-items-center justify-content-center" style="height: 300px;">
-            <i class="bi bi-image fs-1 text-muted"></i>
+    <div class="row">
+        <div class="col-md-6">
+            {% if product.image %}
+                <img src="{{ product.image.url }}" class="img-fluid" alt="{{ product.name }}">
+            {% else %}
+                <img src="https://via.placeholder.com/600x400?text=Нет+изображения" class="img-fluid" alt="Placeholder">
+            {% endif %}
         </div>
-        {% endif %}
+        <div class="col-md-6">
+            <h1>{{ product.name }}</h1>
+            <p class="lead">{{ product.description }}</p>
+            <h3 class="my-3">{{ product.price }} руб.</h3>
+            <p>В наличии: {% if product.stock %} {{ product.stock }} шт. {% else %} Нет {% endif %}</p>
+            <a href="{% url 'cart:add_cart' %}?product_id={{ product.id }}" class="btn btn-success btn-lg">Добавить в корзину</a>
+            <a href="{% url 'products:home' %}" class="btn btn-secondary btn-lg">Назад к списку</a>
+        </div>
     </div>
-    <div class="col-md-6">
-        <h1>{{ product.name }}</h1>
-        <p class="lead">{{ product.description }}</p>
-        <h3 class="text-primary">{{ product.price }} ₽</h3>
-        <p class="text-muted">Категория: {{ product.category.name }}</p>
-
-        <form method="post" action="{% url 'products:cart_item' product.id %}">
-            {% csrf_token %}
-            <div class="mb-3">
-                <label for="quantity" class="form-label">Количество</label>
-                <input type="number" name="quantity" id="quantity" class="form-control" value="1" min="1">
-            </div>
-            <button type="submit" class="btn btn-success btn-lg">Добавить в корзину</button>
-        </form>
-        <a href="{% url 'products:home' %}" class="btn btn-outline-secondary mt-3">Назад к каталогу</a>
-    </div>
-</div>
 {% endblock %}

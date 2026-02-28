@@ -3,22 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}MyShop{% endblock %}</title>
+    <title>{% block title %}Мой магазин{% endblock %}</title>
+    <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    {% block extra_css %}{% endblock %}
 </head>
 <body>
-    <!-- Навигация -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <!-- Навигационная панель -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
-            <a class="navbar-brand" href="{% url 'products:home' %}">MyShop</a>
+            <a class="navbar-brand" href="{% url 'products:home' %}">Мой магазин</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto">
+                <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'products:home' %}">Главная</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'products:delivery' %}">Доставка</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'core:about' %}">О нас</a>
@@ -26,27 +30,15 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'core:contact' %}">Контакты</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'products:delivery' %}">Доставка</a>
-                    </li>
-                </ul>
-                <ul class="navbar-nav">
                     {% if user.is_authenticated %}
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                                {{ user.username }}
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="{% url 'core:profile' %}">Профиль</a></li>
-                                <li><a class="dropdown-item" href="#">Корзина</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li>
-                                    <form method="post" action="{% url 'core:logout' %}">
-                                        {% csrf_token %}
-                                        <button type="submit" class="dropdown-item">Выйти</button>
-                                    </form>
-                                </li>
-                            </ul>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'core:profile' %}">Профиль</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'cart:cart_detail' %}">Корзина</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'core:logout' %}">Выйти</a>
                         </li>
                     {% else %}
                         <li class="nav-item">
@@ -61,35 +53,21 @@
         </div>
     </nav>
 
-    <!-- Сообщения -->
-    <div class="container mt-3">
-        {% if messages %}
-            {% for message in messages %}
-                <div class="alert alert-{{ message.tags }} alert-dismissible fade show">
-                    {{ message }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                </div>
-            {% endfor %}
-        {% endif %}
-    </div>
-
     <!-- Основной контент -->
     <main class="container my-4">
-        {% block content %}{% endblock %}
+        {% block content %}
+        {% endblock %}
     </main>
 
     <!-- Подвал -->
-    <footer class="bg-light text-center text-muted py-4 mt-5">
+    <footer class="bg-light text-center py-3">
         <div class="container">
-            <p>&copy; 2024 MyShop</p>
-            <p>
-                <a href="{% url 'core:about' %}" class="text-decoration-none me-3">О нас</a>
-                <a href="{% url 'core:contact' %}" class="text-decoration-none me-3">Контакты</a>
-                <a href="{% url 'products:delivery' %}" class="text-decoration-none">Доставка</a>
-            </p>
+            <p class="mb-0">© 2025 Мой магазин. Все права защищены.</p>
         </div>
     </footer>
 
+    <!-- Bootstrap JS (для работы навигационной панели) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    {% block extra_js %}{% endblock %}
 </body>
 </html>
