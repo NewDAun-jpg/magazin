@@ -9,3 +9,4 @@ class Profile(models.Model):
     phone_number = PhoneNumberField(blank=True, null=False,unique=True)
     data_birthday = models.DateField(null=True, blank=True)
     address = models.TextField(null=True, blank=True)
+    phone_number = PhoneNumberField(blank=True, null=True, unique=True)
