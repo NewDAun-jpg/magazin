@@ -1,45 +1,20 @@
 {% extends 'products/base.html' %}
-
-{% block title %}Корзина - Мой магазин{% endblock %}
-
+{% block title %}Корзина{% endblock %}
 {% block content %}
-    <h1>Ваша корзина</h1>
-    {% if cart_items %}
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Товар</th>
-                    <th>Количество</th>
-                    <th>Цена</th>
-                    <th>Сумма</th>
-                    <th>Действия</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for item in cart_items %}
-                <tr>
-                    <td>{{ item.product.name }}</td>
-                    <td>
-                        <form action="{% url 'cart:change_quantity_cart' %}" method="post" style="display:inline;">
-                            {% csrf_token %}
-                            <input type="hidden" name="item_id" value="{{ item.id }}">
-                            <input type="number" name="quantity" value="{{ item.quantity }}" min="1" class="form-control" style="width:80px; display:inline;">
-                            <button type="submit" class="btn btn-sm btn-outline-secondary">Изменить</button>
-                        </form>
-                    </td>
-                    <td>{{ item.product.price }} руб.</td>
-                    <td>{{ item.total_price }} руб.</td>
-                    <td>
-                        <a href="{% url 'cart:delete_cart' %}?item_id={{ item.id }}" class="btn btn-sm btn-danger">Удалить</a>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-        <p><strong>Итого: {{ cart_total }} руб.</strong></p>
-        <a href="{% url 'products:home' %}" class="btn btn-primary">Продолжить покупки</a>
-        <!-- Кнопка оформления заказа -->
-    {% else %}
-        <p>Корзина пуста. <a href="{% url 'products:home' %}">Перейти к покупкам</a></p>
-    {% endif %}
+  <h1>Корзина</h1>
+  <div id="cart-items">
+    {% for item in cart_items %}
+      <div class="cart-item">
+        <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}">
+        <span>{{ item.product.name }}</span>
+        <span>{{ item.quantity }}</span>
+        <span>{{ item.total_price }}</span>
+        <button data-product-id="{{ item.product.id }}" class="change-quantity">+</button>
+        <button data-product-id="{{ item.product.id }}" class="change-quantity">-</button>
+        <button data-product-id="{{ item.product.id }}" class="remove">Удалить</button>
+      </div>
+    {% endfor %}
+  </div>
+  <div id="cart-total">Итого: {{ total }}</div>
+  <a href="{% url 'products:home' %}">Продолжить покупки</a>
 {% endblock %}

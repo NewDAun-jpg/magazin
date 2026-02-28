@@ -1,8 +1,38 @@
 {% extends 'products/base.html' %}
+{{% block content %}
 
-{% block title %}О нас - Мой магазин{% endblock %}
+<header class="bg-dark py-5">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="text-center text-white">
+            <h1 class="display-4 fw-bolder">Abobus...</h1>
+            <p class="lead fw-normal text-white-50 mb-0">Welcome to about</p>
+        </div>
+    </div>
+</header>
+<br><br>
+<div class="container">
+    <div class="row">
+        <center>
+            <div class="col-8">
+                <p align="justify">
+                    Лучшее творчество снг
+                </p>
+            </div>
+        </center>
+    </div>
+</div>
+<br>
+<div class="container">
+    <div class="row">
+        <center>
+            <div class="col-8">
+                <h2>Our Team</h2>
+                <p align="justify">
+                    We have Django
+                </p>
+            </div>
+        </center>
+    </div>
+</div>
 
-{% block content %}
-    <h1>О нашем магазине</h1>
-    <p>Здесь можно разместить информацию о компании, её миссии и преимуществах.</p>
 {% endblock %}
