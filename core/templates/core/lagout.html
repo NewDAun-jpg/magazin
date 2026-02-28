@@ -1,0 +1,10 @@
+{% extends 'products/base.html' %}
+
+{% block title %}Выход - Мой магазин{% endblock %}
+
+{% block content %}
+    <div class="alert alert-info">
+        <h4 class="alert-heading">Вы вышли из системы</h4>
+        <p>Спасибо, что были с нами. <a href="{% url 'products:home' %}">Вернуться на главную</a></p>
+    </div>
+{% endblock %}
