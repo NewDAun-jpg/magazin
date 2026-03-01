@@ -6,6 +6,10 @@ from products.models import Product
 from .models import Cart
 from .models import CartItem
 
+@login_required
+def cart_detail(request):
+    cart = Cart.objects.get(user=request.user)
+    items = CartItem.objects.filter(cart=cart)
 
 
 @login_required
@@ -22,8 +26,10 @@ def add_cart(request):# добавление в корзину товаров + 
         if cartitem:
             cartitem.quantity += 1
             cartitem.save()
+            return render(request, 'cart_detail.html', {'cart': cart})
         else:
             cartitem = CartItem.objects.create(cart=cart, product=product, quantity=1)
+            return render(request, 'cart_detail.html', {'cart': cart})
 
 
 @login_required

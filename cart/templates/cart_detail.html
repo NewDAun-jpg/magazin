@@ -1,20 +1,84 @@
-{% extends 'products/base.html' %}
-{% block title %}Корзина{% endblock %}
-{% block content %}
-  <h1>Корзина</h1>
-  <div id="cart-items">
-    {% for item in cart_items %}
-      <div class="cart-item">
-        <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}">
-        <span>{{ item.product.name }}</span>
-        <span>{{ item.quantity }}</span>
-        <span>{{ item.total_price }}</span>
-        <button data-product-id="{{ item.product.id }}" class="change-quantity">+</button>
-        <button data-product-id="{{ item.product.id }}" class="change-quantity">-</button>
-        <button data-product-id="{{ item.product.id }}" class="remove">Удалить</button>
-      </div>
-    {% endfor %}
-  </div>
-  <div id="cart-total">Итого: {{ total }}</div>
-  <a href="{% url 'products:home' %}">Продолжить покупки</a>
-{% endblock %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Корзина</title>
+    <style>
+        table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
+        .cart-image { max-width: 80px; max-height: 80px; object-fit: cover; }
+        .btn { padding: 5px 12px; background: #007bff; color: white; border: none; cursor: pointer; text-decoration: none; display: inline-block; }
+        .btn-minus { background: #ffc107; }
+        .btn-remove { background: #dc3545; }
+        .btn-checkout { background: #28a745; }
+        .total { font-size: 1.4em; font-weight: bold; margin: 20px 0; }
+        form { display: inline; }
+        .actions { display: flex; gap: 5px; align-items: center; }
+    </style>
+</head>
+<body>
+    <h1>Ваша корзина</h1>
+
+    {% if cart_items %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Товар</th>
+                    <th>Изображение</th>
+                    <th>Цена</th>
+                    <th>Количество</th>
+                    <th>Сумма</th>
+                    <th>Действия</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in cart_items %}
+                <tr>
+                    <td>{{ item.product.name }}</td>
+                    <td>
+                        {% if item.product.image %}
+                            <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" class="cart-image">
+                        {% endif %}
+                    </td>
+                    <td>{{ item.product.price }} руб.</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>{{ item.product.price|floatformat:2 }} руб.</td>
+                    <td class="actions">
+                        {# Кнопка увеличения количества (GET-запрос на add_cart) #}
+                        <a href="{% url 'cart:add_cart' %}?product_id={{ item.product.id }}" 
+                           class="btn btn-plus" 
+                           onclick="return confirm('Добавить ещё один такой товар?')">+</a>
+
+                        {# Форма уменьшения количества (POST) #}
+                        <form action="{% url 'cart:change_quantity_cart' %}" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="product_id" value="{{ item.product.id }}">
+                            <button type="submit" class="btn btn-minus" 
+                                    {% if item.quantity == 1 %}onclick="return confirm('Товар будет удалён из корзины. Продолжить?')"{% endif %}>−</button>
+                        </form>
+
+                        {# Форма полного удаления товара #}
+                        <form action="{% url 'cart:delete_cart' %}" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="product_id" value="{{ item.product.id }}">
+                            <button type="submit" class="btn btn-remove" onclick="return confirm('Удалить товар из корзины?')">Удалить</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="total">
+            Итого: {{ cart_total|floatformat:2 }} руб.
+        </div>
+
+        <a href="{% url 'order:checkout' %}" class="btn btn-checkout">Оформить заказ</a>
+        <a href="{% url 'catalog:index' %}">Продолжить покупки</a>
+
+    {% else %}
+        <p>Ваша корзина пуста.</p>
+        <a href="{% url 'catalog:index' %}">Вернуться в каталог</a>
+    {% endif %}
+</body>
+</html>
