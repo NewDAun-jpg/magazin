@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.core.paginator import Paginator
 from products.models import Product
 from .models import Cart
@@ -10,6 +10,7 @@ from .models import CartItem
 def cart_detail(request):
     cart = Cart.objects.get(user=request.user)
     items = CartItem.objects.filter(cart=cart)
+    return render(request, 'cart_detail.html', {'cart': cart, 'items': items})
 
 
 @login_required
@@ -26,10 +27,10 @@ def add_cart(request):# добавление в корзину товаров + 
         if cartitem:
             cartitem.quantity += 1
             cartitem.save()
-            return render(request, 'cart_detail.html', {'cart': cart})
+            return redirect('cart_detail')
         else:
             cartitem = CartItem.objects.create(cart=cart, product=product, quantity=1)
-            return render(request, 'cart_detail.html', {'cart': cart})
+            return redirect('cart_detail')
 
 
 @login_required
@@ -43,6 +44,7 @@ def delete_cart(request): #удаление товара совсем из в к
 
         if cartitem:
             cartitem.delete()
+            return redirect('cart_detail')
 
 
 @login_required
@@ -57,8 +59,10 @@ def change_quantity_cart(request):# изминение количества то
         if cartitem and cartitem.quantity >= 1:
             cartitem.quantity -= 1
             cartitem.save()
+            return redirect('cart_detail')
         elif cartitem and cartitem.quantity == 0:
             cartitem.delete()
+            return redirect('cart_detail')
 
 
 
