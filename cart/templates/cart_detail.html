@@ -19,7 +19,7 @@
 <body>
     <h1>Ваша корзина</h1>
 
-    {% if cart_items %}
+    {% if items %}
         <table>
             <thead>
                 <tr>
@@ -32,12 +32,14 @@
                 </tr>
             </thead>
             <tbody>
-                {% for item in cart_items %}
+                {% for item in items %}
                 <tr>
                     <td>{{ item.product.name }}</td>
                     <td>
                         {% if item.product.image %}
                             <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" class="cart-image">
+                        {% else %}
+                            <span>Нет фото</span>
                         {% endif %}
                     </td>
                     <td>{{ item.product.price }} руб.</td>
@@ -45,16 +47,16 @@
                     <td>{{ item.product.price|floatformat:2 }} руб.</td>
                     <td class="actions">
                         {# Кнопка увеличения количества (GET-запрос на add_cart) #}
-                        <a href="{% url 'cart:add_cart' %}?product_id={{ item.product.id }}" 
-                           class="btn btn-plus" 
+                        <a href="{% url 'cart:add_cart' %}?product_id={{ item.product.id }}"
+                           class="btn btn-plus"
                            onclick="return confirm('Добавить ещё один такой товар?')">+</a>
 
                         {# Форма уменьшения количества (POST) #}
                         <form action="{% url 'cart:change_quantity_cart' %}" method="post">
                             {% csrf_token %}
                             <input type="hidden" name="product_id" value="{{ item.product.id }}">
-                            <button type="submit" class="btn btn-minus" 
-                                    {% if item.quantity == 1 %}onclick="return confirm('Товар будет удалён из корзины. Продолжить?')"{% endif %}>−</button>
+                            <button type="submit" class="btn btn-minus"
+                                    {% id item.quantity == 1 %}onclick="return confirm('Товар будет удалён из корзины. Продолжить?')" {% endif %}>−</button>
                         </form>
 
                         {# Форма полного удаления товара #}
@@ -70,15 +72,15 @@
         </table>
 
         <div class="total">
-            Итого: {{ cart_total|floatformat:2 }} руб.
+            Итого: {{ total|floatformat:2 }} руб.
         </div>
 
-        <a href="{% url 'order:checkout' %}" class="btn btn-checkout">Оформить заказ</a>
-        <a href="{% url 'catalog:index' %}">Продолжить покупки</a>
+        <a href="#" class="btn btn-checkout">Оформить заказ</a>
+        <a href="{% url 'products:home' %}">Продолжить покупки</a>
 
     {% else %}
         <p>Ваша корзина пуста.</p>
-        <a href="{% url 'catalog:index' %}">Вернуться в каталог</a>
+        <a href="{% url 'products:home' %}">Вернуться в каталог</a>
     {% endif %}
 </body>
 </html>

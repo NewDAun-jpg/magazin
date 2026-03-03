@@ -9,7 +9,8 @@ from .models import CartItem
 def cart_detail(request):
     cart = Cart.objects.get(user=request.user)
     items = CartItem.objects.filter(cart=cart)
-    return render(request, 'cart_detail.html', {'cart': cart, 'items': items})
+    total = sum(item.product.price * item.quantity for item in items)
+    return render(request, 'cart_detail.html', {'cart': cart, 'items': items, 'total': total})
 
 
 @login_required
