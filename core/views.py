@@ -54,7 +54,6 @@ def profile(request):#профиль
 
 def login_view(request):#вход в аккаунт
     if request.method == 'POST':
-        print(f"Метод запроса: {request.method}")
         #запрос имени и пароля
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -62,11 +61,18 @@ def login_view(request):#вход в аккаунт
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect('products:home')
+            next_page = request.POST.get('next') or request.GET.get('next')
+            if next_page:
+                return redirect(next_page)
+            else:
+                return redirect('core:home')
         else:
             messages.error(request,'ошибка')
+            next_page = request.GET.get('next','')
+            return render(request, 'core/login_view.html',{'next': next_page})
     else:
-        return render(request, 'products/home.html')
+        next_page = request.GET.get('next','')
+        return render(request, 'core/login_view.html',{'next': next_page})
 
 def logout_view(request):#выход из аккаунтв
     logout(request)

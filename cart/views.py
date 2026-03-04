@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
+
 from products.models import Product
 from .models import Cart
 from .models import CartItem
@@ -14,24 +15,28 @@ def cart_detail(request):
 
 
 @login_required
-def add_cart(request):# добавление в корзину товаров + создание корзины у пользователя
+def add_cart(request):
     if request.method == 'GET':
-        product_id = request.GET.get('product_id') #берем id из бд
-        product = Product.objects.get(id=product_id) #проверка на то ли взяли
+        product_id = request.GET.get('product_id')
+        if not product_id:
+            return redirect('cart_detail')  #можно в иное место релирект
 
-        #содание корзины для пользователя
+        product = Product.objects.get_object_or_404(id=product_id)
         cart, created = Cart.objects.get_or_create(user=request.user)
-        cartitem = CartItem.objects.filter(cart=cart, product=product).first()
 
-        #добавление в корзину товаров
+        # Теперь проверка
+        if cart.pk is None or product.pk is None:
+            print("Ошибка: объект не сохранён")
+            return redirect('cart_detail')
+
+        cartitem = CartItem.objects.filter(cart=cart, product=product).first()
         if cartitem:
             cartitem.quantity += 1
             cartitem.save()
-            return redirect('cart_detail')
         else:
             CartItem.objects.create(cart=cart, product=product, quantity=1)
-            return redirect('cart_detail')
-    return None
+        return redirect('cart_detail')
+    return redirect('cart_detail')  # если не GET
 
 
 @login_required
