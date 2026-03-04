@@ -12,8 +12,6 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 import os
 from pathlib import Path
 
-from django.conf.global_settings import MEDIA_URL, LOGIN_REDIRECT_URL
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -127,10 +125,10 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
-LOGOUT_REDIRECT_URL = '/'
+#LOGOUT_REDIRECT_URL = '/'
 
 # Use the cache for sessions
 SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
 
-LOGIN_URL = '/login_view/'
+LOGIN_URL = 'core:login_view'
 
