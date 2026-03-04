@@ -54,17 +54,17 @@ def profile(request):#профиль
 
 def login_view(request):#вход в аккаунт
     if request.method == 'POST':
-        #запрос имени и пароля
+        #отправление форм имени и пароля
         username = request.POST.get('username')
         password = request.POST.get('password')
         # проверка что пароль совпадает и имя пользователя
         user = authenticate(request, username=username, password=password)
-        if user is not None:
-            login(request, user)
-            next_page = request.POST.get('next') or request.GET.get('next')
-            if next_page:
+        if user is not None: # если юзер не None то имя и пароль правильны
+            login(request, user)# сохраняет id
+            next_page = request.POST.get('next') or request.GET.get('next')# перенаправляет пользователя изначально куда хотел
+            if next_page:# если next не пустой то перенаправляем его куда хоте
                 return redirect(next_page)
-            else:
+            else:# иначе переводим на главную страницу
                 return redirect('core:home')
         else:
             messages.error(request,'ошибка')
