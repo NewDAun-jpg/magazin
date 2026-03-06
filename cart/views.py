@@ -8,35 +8,28 @@ from .models import CartItem
 
 @login_required
 def cart_detail(request):
-    cart = Cart.objects.get(user=request.user)
-    items = CartItem.objects.filter(cart=cart)
-    total = sum(item.product.price * item.quantity for item in items)
-    return render(request, 'cart_detail.html', {'cart': cart, 'items': items, 'total': total})
+    cart = request.session.get('cart',{})
+    product_ids = cart.keys()
+    product = Product.objects.filter(id__in=product_ids)
+    
 
 
-@login_required
+
+
 def add_cart(request):
-    if request.method == 'GET':
-        product_id = request.GET.get('product_id')
-        if not product_id:
-            return redirect('cart:cart_detail')  #можно в иное место релирект
+    product_id = request.GET.get('product_id') # берем и смотрим,и запоминаем тот ли товар
+    product_id_str = str(product_id)  # переводим все в строки для удобства и JSON
 
-        product = Product.objects.get_object_or_404(id=product_id)
-        cart, created = Cart.objects.get_or_create(user=request.user)
+    cart = request.session.get('cart',{}) #создание ключей и словаря
 
-        # Теперь проверка
-        if cart.pk is None or product.pk is None:
-            print("Ошибка: объект не сохранён")
-            return redirect('cart:cart_detail')
+    if product_id_str in cart:#само условие добавление  в корзину
+        cart[product_id_str] += 1
+    else:
+        cart[product_id_str] = 1
 
-        cartitem = CartItem.objects.filter(cart=cart, product=product).first()
-        if cartitem:
-            cartitem.quantity += 1
-            cartitem.save()
-        else:
-            CartItem.objects.create(cart=cart, product=product, quantity=1)
-        return redirect('cart:cart_detail')
-    return redirect('cart:cart_detail')  # если не GET
+    request.session['cart'] = cart #возьми список и сохрани под ключом cart
+    return redirect('cart_detail')
+
 
 
 @login_required
