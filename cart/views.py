@@ -19,7 +19,7 @@ def add_cart(request):
     if request.method == 'GET':
         product_id = request.GET.get('product_id')
         if not product_id:
-            return redirect('cart_detail')  #можно в иное место релирект
+            return redirect('cart:cart_detail')  #можно в иное место релирект
 
         product = Product.objects.get_object_or_404(id=product_id)
         cart, created = Cart.objects.get_or_create(user=request.user)
@@ -27,7 +27,7 @@ def add_cart(request):
         # Теперь проверка
         if cart.pk is None or product.pk is None:
             print("Ошибка: объект не сохранён")
-            return redirect('cart_detail')
+            return redirect('cart:cart_detail')
 
         cartitem = CartItem.objects.filter(cart=cart, product=product).first()
         if cartitem:
@@ -35,8 +35,8 @@ def add_cart(request):
             cartitem.save()
         else:
             CartItem.objects.create(cart=cart, product=product, quantity=1)
-        return redirect('cart_detail')
-    return redirect('cart_detail')  # если не GET
+        return redirect('cart:cart_detail')
+    return redirect('cart:cart_detail')  # если не GET
 
 
 @login_required
@@ -50,7 +50,7 @@ def delete_cart(request): #удаление товара совсем из в к
 
         if cartitem:
             cartitem.delete()
-            return redirect('cart_detail')
+            return redirect('cart:cart_detail')
     return None
 
 
@@ -69,8 +69,8 @@ def change_quantity_cart(request):# изминение количества то
                 cartitem.save()
             else:  # quantity == 1
                 cartitem.delete()
-            return redirect('cart_detail')
-        return redirect('cart_detail')
+            return redirect('cart:cart_detail')
+        return redirect('cart:cart_detail')
     return None
 
 
