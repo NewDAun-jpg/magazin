@@ -1,16 +1,26 @@
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect, get_object_or_404
-
+from django.shortcuts import redirect, render
 from products.models import Product
-from .models import Cart
-from .models import CartItem
 
 
-@login_required
 def cart_detail(request):
-    cart = request.session.get('cart',{})
+    cart = request.session.get('cart', {})
     product_ids = cart.keys()
-    product = Product.objects.filter(id__in=product_ids)
+    products = Product.objects.filter(id__in=product_ids)
+
+    # Создаём список элементов
+    items = []
+    total = 0
+    for product in products:
+        quantity = cart.get(str(product.id), 0)
+        if quantity > 0:
+            items.append({
+                'product': product,
+                'quantity': quantity,
+                'subtotal': product.price * quantity
+            })
+            total += product.price * quantity
+
+    return render(request, 'cart_detail.html', {'items': items, 'total': total})
     
 
 
@@ -28,40 +38,34 @@ def add_cart(request):
         cart[product_id_str] = 1
 
     request.session['cart'] = cart #возьми список и сохрани под ключом cart
-    return redirect('cart_detail')
+    return redirect('cart:cart_detail')
 
 
 
-@login_required
 def delete_cart(request): #удаление товара совсем из в корзине
-    if request.method == 'POST':
-        product_id = request.POST.get('product_id')
-        product = Product.objects.get(id=product_id)
+    product_id = request.GET.get('product_id')
+    product_id_str = str(product_id)
+    cart = request.session.get('cart',{})
 
-        cart = Cart.objects.get(user=request.user)
-        cartitem = CartItem.objects.filter(cart=cart, product=product)
+    if product_id_str not in cart:
+        request.session['cart'] = cart
+    else:
+        cart[product_id_str] -= 1
+        if 
+        return redirect('cart:cart_detail')
 
-        if cartitem:
-            cartitem.delete()
-            return redirect('cart:cart_detail')
-    return None
 
 
-@login_required
 def change_quantity_cart(request):# изминение количества товаро в корзине
-    if request.method == 'POST':
-        product_id = request.POST.get('product_id')
-        product = Product.objects.get(id=product_id)
-
-        cart = Cart.objects.get(user=request.user)
-        cartitem = CartItem.objects.filter(cart=cart, product=product).first()
-
-        if cartitem:
-            if cartitem.quantity > 1:
-                cartitem.quantity -= 1
-                cartitem.save()
-            else:  # quantity == 1
-                cartitem.delete()
+    product_id = request.GET.get('product_id')
+    product_id_str = str(product_id)
+    request.session.get('cart', {})
+    if product_id_str:
+        if product_id_str.quantity > 1:
+            product_id_str.quantity -= 1
+            product_id_str.save()
+        else:  # quantity == 1
+            product_id_str.delete()
             return redirect('cart:cart_detail')
         return redirect('cart:cart_detail')
     return None
