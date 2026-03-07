@@ -47,11 +47,8 @@ def delete_cart(request): #удаление товара совсем из в к
     product_id_str = str(product_id)
     cart = request.session.get('cart',{})
 
-    if product_id_str not in cart:
-        request.session['cart'] = cart
-    else:
-        cart[product_id_str] -= 1
-        if 
+    if product_id_str in cart:
+        del cart[product_id_str]
         return redirect('cart:cart_detail')
 
 
