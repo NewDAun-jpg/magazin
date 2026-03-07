@@ -53,19 +53,18 @@ def delete_cart(request): #удаление товара совсем из в к
 
 
 
-def change_quantity_cart(request):# изминение количества товаро в корзине
+def change_quantity_cart(request): #изминение корзины
     product_id = request.GET.get('product_id')
-    product_id_str = str(product_id)
-    request.session.get('cart', {})
-    if product_id_str:
-        if product_id_str.quantity > 1:
-            product_id_str.quantity -= 1
-            product_id_str.save()
-        else:  # quantity == 1
-            product_id_str.delete()
-            return redirect('cart:cart_detail')
+    if not product_id:
         return redirect('cart:cart_detail')
-    return None
+    product_id_str = str(product_id)
+    cart = request.session.get('cart', {})
+    if product_id_str in cart:
+        cart[product_id_str] -= 1
+        if cart[product_id_str] == 0:
+            del cart[product_id_str]
+        request.session['cart'] = cart
+    return redirect('cart:cart_detail')
 
 
 
