@@ -128,7 +128,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 #LOGOUT_REDIRECT_URL = '/'
 
 # Use the cache for sessions
-SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 
 LOGIN_URL = 'core:login_view'
 

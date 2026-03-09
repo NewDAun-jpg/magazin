@@ -3,6 +3,7 @@ from products.models import Product
 
 
 def cart_detail(request):
+    print("Корзина в cart_detail:", request.session.get('cart'))
     cart = request.session.get('cart', {})
     product_ids = cart.keys()
     products = Product.objects.filter(id__in=product_ids)
@@ -20,6 +21,8 @@ def cart_detail(request):
             })
             total += product.price * quantity
 
+    print("Корзина перед рендером:", cart)
+    print("Тип корзины:", type(cart))
     return render(request, 'cart_detail.html', {'items': items, 'total': total})
     
 
@@ -39,22 +42,25 @@ def add_cart(request):
 
     request.session['cart'] = cart #возьми список и сохрани под ключом cart
     request.session.modified = True
+    request.session.save()
     return redirect('cart:cart_detail')
 
 
 
-def delete_cart(request): #удаление товара совсем из в корзине
+def delete_cart(request):#удаление товара совсем из в корзине
     product_id = request.GET.get('product_id')
     product_id_str = str(product_id)
-    cart = request.session.get('cart',{})
+    cart = request.session.get('cart', {})
 
     if product_id_str in cart:
         del cart[product_id_str]
-        return redirect('cart:cart_detail')
+        request.session['cart'] = cart
+        request.session.modified = True
+    return redirect('cart:cart_detail')
 
 
 
-def change_quantity_cart(request): #изминение корзины
+def change_quantity_cart(request):#изминение корзины
     product_id = request.GET.get('product_id')
     if not product_id:
         return redirect('cart:cart_detail')
@@ -65,6 +71,7 @@ def change_quantity_cart(request): #изминение корзины
         if cart[product_id_str] == 0:
             del cart[product_id_str]
         request.session['cart'] = cart
+        request.session.modified = True
     return redirect('cart:cart_detail')
 
 
