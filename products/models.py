@@ -18,12 +18,8 @@ class Product(models.Model):#главный класс
     category = models.ForeignKey(Category, on_delete=models.PROTECT,null=True, blank=True)
     image = models.ImageField(upload_to='products/', null=True, blank=True)
 
-    def __init__(self, *args: Any, **kwargs: Any):
-        super().__init__(args, kwargs)
-        self.id = None
-
     def __str__(self):
-        return f'{self.name}'  # показывать  продукт
+        return self.name # показывать  продукт
 
 
 class Wishlist(models.Model):  # Избранное/лист желания
