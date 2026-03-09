@@ -38,6 +38,7 @@ def add_cart(request):
         cart[product_id_str] = 1
 
     request.session['cart'] = cart #возьми список и сохрани под ключом cart
+    request.session.modified = True
     return redirect('cart:cart_detail')
 
 
