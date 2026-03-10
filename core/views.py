@@ -65,7 +65,7 @@ def login_view(request):#вход в аккаунт
             if next_page:# если next не пустой то перенаправляем его куда хоте
                 return redirect(next_page)
             else:# иначе переводим на главную страницу
-                return redirect('products:home')
+                return redirect('core:home')
         else:
             messages.error(request,'ошибка')
             next_page = request.GET.get('next','')
