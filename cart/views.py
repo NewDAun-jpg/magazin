@@ -30,7 +30,7 @@ def cart_detail(request):
 
 
 def add_cart(request):
-    product_id = request.GET.get('product_id') # берем и смотрим,и запоминаем тот ли товар
+    product_id = request.POST.get('product_id') # берем и смотрим,и запоминаем тот ли товар
     product_id_str = str(product_id)  # переводим все в строки для удобства и JSON
 
     cart = request.session.get('cart',{}) #создание ключей и словаря
@@ -48,7 +48,7 @@ def add_cart(request):
 
 
 def delete_cart(request):#удаление товара совсем из в корзине
-    product_id = request.GET.get('product_id')
+    product_id = request.POST.get('product_id')
     product_id_str = str(product_id)
     cart = request.session.get('cart', {})
 
@@ -61,7 +61,7 @@ def delete_cart(request):#удаление товара совсем из в к�
 
 
 def change_quantity_cart(request):#изминение корзины
-    product_id = request.GET.get('product_id')
+    product_id = request.POST.get('product_id')
     if not product_id:
         return redirect('cart:cart_detail')
     product_id_str = str(product_id)
