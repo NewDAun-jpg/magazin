@@ -43,6 +43,17 @@ def add_to_wishlist(request):
         return redirect('wishlist_page')
 
 
+@login_required
+def delet_to_wishlist(request):
+    if request.method == 'GET':
+        product_id = request.GET.get('product_id')
+        product = Product.objects.get(id=product_id)
+        wish_item = Wishlist.objects.filter(user=request.user, product=product).first()
+        if wish_item:
+            wish_item.delete()
+            return redirect('wishlist_page')
+    return redirect('home')
+
 
 
 
