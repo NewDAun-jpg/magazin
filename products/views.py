@@ -47,7 +47,11 @@ def add_to_wishlist(request):
 def delet_to_wishlist(request):
     if request.method == 'GET':
         product_id = request.GET.get('product_id')
-        product = Product.objects.get(id=product_id)
+        try:
+            product = Product.objects.get(id=product_id)
+        except Product.DoesNotExist:
+            print('product not found')
+            return redirect('wishlist_page')
         wish_item = Wishlist.objects.filter(user=request.user, product=product).first()
         if wish_item:
             wish_item.delete()
