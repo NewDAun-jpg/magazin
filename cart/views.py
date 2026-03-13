@@ -35,7 +35,7 @@ def cart_detail(request):
 
 
 def add_cart(request):
-    product_id = request.POST.get('product_id') # берем и смотрим,и запоминаем тот ли товар
+    product_id = request.GET.get('product_id') # берем и смотрим,и запоминаем тот ли товар
     product_id_str = str(product_id)  # переводим все в строки для удобства и JSON
 
     cart = request.session.get('cart',{}) #создание ключей и словаря

@@ -44,7 +44,7 @@
                     </td>
                     <td>{{ item.product.price }} руб.</td>
                     <td>{{ item.quantity }}</td>
-                    <td>{{ item.product.price|floatformat:2 }} руб.</td>
+                    <td>{{ item.subtotal }} руб.</td>
                     <td class="actions">
                         {# Кнопка увеличения количества (GET-запрос на add_cart) #}
                         <a href="{% url 'cart:add_cart' %}?product_id={{ item.product.id }}"
