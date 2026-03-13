@@ -6,6 +6,10 @@ def cart_detail(request):
     print("Корзина в cart_detail:", request.session.get('cart'))
     cart = request.session.get('cart', {})
     product_ids = cart.keys()
+    if 'None' in cart: #если попал ключ none
+        del cart['None']
+        request.session['cart'] = cart
+        request.session.modified = True
     products = Product.objects.filter(id__in=product_ids)
 
 
