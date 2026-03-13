@@ -8,6 +8,7 @@ def cart_detail(request):
     product_ids = cart.keys()
     products = Product.objects.filter(id__in=product_ids)
 
+
     # Создаём список элементов
     items = []
     total = 0
