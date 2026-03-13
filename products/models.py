@@ -30,9 +30,6 @@ class Wishlist(models.Model):  # Избранное/лист желания
     def __str__(self):
         return f'Избранное {self.user.username}:'
 
-#class Wishlistitem(models.Model):
-    #wishlist = models.ForeignKey(Wishlist, on_delete=models.CASCADE)
-    #product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    #quantity = models.PositiveIntegerField(default=1)
+
 
 
