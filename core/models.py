@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.db.models.fields import TextField
 from phonenumber_field.modelfields import PhoneNumberField
 
 class Profile(models.Model):

@@ -18,6 +18,10 @@ class Product(models.Model):#главный класс
     category = models.ForeignKey(Category, on_delete=models.PROTECT,blank=True) #PROTECT - пока есть товары категорию не удалить
     image = models.ImageField(upload_to='products/', null=True, blank=True)
 
+    def __init__(self, *args: Any, **kwargs: Any):
+        super().__init__(args, kwargs)
+        self.id = None
+
     def __str__(self):
         return self.name # показывать  продукт
 
@@ -25,6 +29,10 @@ class Product(models.Model):#главный класс
 class Wishlist(models.Model):  # Избранное/лист желания
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     products = models.ForeignKey(Product, on_delete=models.CASCADE)
+
+    def __init__(self, *args: Any, **kwargs: Any):
+        super().__init__(args, kwargs)
+        self.quantity = None
 
     def __str__(self):
         return f'Избранное {self.user.username}:'

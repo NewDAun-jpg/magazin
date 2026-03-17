@@ -4,8 +4,6 @@ from products.models import Product
 
 
 
-
-
 class Cart(models.Model):#корзина
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
