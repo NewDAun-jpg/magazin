@@ -31,7 +31,7 @@ class Wishlist(models.Model):  # Избранное/лист желания
     def __str__(self):
         return f'Избранное {self.user.username}:'
 
-    class Meta:
+    class Meta: #доделать
         unique_together = ('user', 'products')
 
 
