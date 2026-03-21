@@ -78,7 +78,7 @@ WSGI_APPLICATION = 'my_shop.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'my_shop_db', # имя в мой базы данных
+        'NAME': 'My_shop_db', # имя в мой базы данных
         'USER': 'postgres',#по дефолту созданный в pgAdmin4
         'PASSWORD': '11111',# пароль от пользователя(postgres)
         'HOST': '127.0.0.1',
