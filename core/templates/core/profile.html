@@ -2,7 +2,19 @@
 {% block title %}Профиль{% endblock %}
 {% block content %}
   <h1>Профиль пользователя</h1>
-  <div>Имя: {{ user.username }}</div>
-  <div>Email: {{ user.email }}</div>
+
+  <form method="post">
+    {% csrf_token %}
+    <div>
+      <label for="username">Имя:</label>
+      <input type="text" name="username" id="username" value="{{ user.username }}" required>
+    </div>
+    <div>
+      <label for="email">Email:</label>
+      <input type="email" name="email" id="email" value="{{ user.email }}" required>
+    </div>
+    <button type="submit">Сохранить</button>
+  </form>
+
   <a href="{% url 'core:logout' %}">Выйти</a>
 {% endblock %}

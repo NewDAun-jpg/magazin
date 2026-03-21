@@ -15,7 +15,8 @@
             <h1>{{ product.name }}</h1>
             <p class="lead">{{ product.description }}</p>
             <h3 class="my-3">{{ product.price }} руб.</h3>
-            <p>В наличии: {% if product.stock %} {{ product.stock }} шт. {% else %} Нет {% endif %}</p>
+            <p>В наличии: {% if product.stock %} {{ product.stock }} шт. {% else %} есть {% endif %}</p>
+            <a href="{% url 'products:add_wishlist' %}?product_id={{ product.id }}" class="btn btn-success btn-lg">Закинуть в WishList</a>
             <a href="{% url 'cart:add_cart' %}?product_id={{ product.id }}" class="btn btn-success btn-lg">Добавить в корзину</a>
             <a href="{% url 'products:home' %}" class="btn btn-secondary btn-lg">Назад к списку</a>
         </div>

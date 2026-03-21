@@ -1,0 +1,29 @@
+{% extends "products/base.html" %}
+
+{% block title %}My Wishlist{% endblock %}
+
+{% block content %}
+<div class="wishlist-container">
+    <h2>My Wishlist</h2>
+
+    {% if wishlist_items %}
+        <ul class="wishlist-list">
+            {% for item in wishlist_items %}
+                <li class="wishlist-item">
+                    <span class="product-name">
+                        <a href="{% url 'products:product_detail' item.products.id %}">
+                            {{ item.products.name }}
+                        </a>
+                    </span>
+                    <div class="item-actions">
+                        <a href="{% url 'products:add_wishlist' %}?product_id={{ item.products.id }}" class="btn-add">+</a>
+                        <a href="{% url 'products:delet_wishlist' %}?product_id={{ item.products.id }}" class="btn-remove" onclick="return confirm('Remove this item?');">×</a>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p class="empty-message">Your wishlist is empty. <a href="{% url 'products:home' %}">Browse products</a>.</p>
+    {% endif %}
+</div>
+{% endblock %}

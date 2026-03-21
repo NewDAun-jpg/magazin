@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from typing import Any
+
 
 
 
@@ -23,16 +23,13 @@ class Product(models.Model):#главный класс
         return self.name # показывать  продукт
 
 
-class Wishlist(models.Model):  # Избранное/лист желания
+class Wishlist(models.Model): # Избранное/лист желания
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    products = models.ForeignKey(Product, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
 
 
-    def __str__(self):
-        return f'Избранное {self.user.username}:'
-
-    class Meta: #доделать
-        unique_together = ('user', 'products')
+    class Meta:#доделать
+        unique_together = ('user', 'product')
 
 
 
