@@ -6,18 +6,18 @@
 <div class="wishlist-container">
     <h2>My Wishlist</h2>
 
-    {% if wishlist_items %}
+    {% if wishlist_items.id %}
         <ul class="wishlist-list">
-            {% for item in wishlist_items %}
+            {% for item in wishlist_items.id  %}
                 <li class="wishlist-item">
                     <span class="product-name">
-                        <a href="{% url 'products:product_detail' item.products.id %}">
-                            {{ item.products.name }}
+                        <a href="{% url 'products:product_detail' item.product.id %}">
+                            {{ item.product.name }}
                         </a>
                     </span>
                     <div class="item-actions">
-                        <a href="{% url 'products:add_wishlist' %}?product_id={{ item.products.id }}" class="btn-add">+</a>
-                        <a href="{% url 'products:delet_wishlist' %}?product_id={{ item.products.id }}" class="btn-remove" onclick="return confirm('Remove this item?');">×</a>
+                        <a href="{% url 'add_to_wishlist' %}?product_id={{ item.product.id }}" class="btn-add">+</a>
+                        <a href="{% url 'delet_to_wishlist' %}?product_id={{ item.product.id }}" class="btn-remove" onclick="return confirm('Remove this item?');">×</a>
                     </div>
                 </li>
             {% endfor %}

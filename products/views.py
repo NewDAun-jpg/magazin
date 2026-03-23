@@ -24,7 +24,6 @@ def delivery_detail(request):
 @login_required
 def wishlist(request):
     wishlist_items = Wishlist.objects.filter(user=request.user)
-    print(wishlist_items)
     return render(request, 'products/wishlist_page.html', {'wishlist_items': wishlist_items})
 
 
