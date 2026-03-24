@@ -29,40 +29,25 @@ def wishlist(request):
 
 @login_required
 def add_to_wishlist(request):
-    if request.method == 'GET':
-        product_id = request.GET.get('product_id')
-        product = Product.objects.get(id=product_id)  # нужно ловить ошибку, если товара нет
+    product_id = request.GET.get('product_id')  # берем и смотрим,и запоминаем тот ли товар
+    product_id_str = str(product_id)  # переводим все в строки для удобства и JSON
 
-        # Пытаемся найти существующую запись
-        wish_item = Wishlist.objects.filter(user=request.user, product=product).first()
+    wishlist = request.session.get('wishlist', {})
 
-        if wish_item:
-            # Запись есть — увеличиваем количество
-            wish_item.quantity += 1
-            wish_item.save()
-        else:
-            # Записи нет — создаём новую
-            Wishlist.objects.create(user=request.user, product=product, quantity=1)
+    if product_id_str in wishlist:
+        wishlist[product_id_str] = 1
 
-        # возращаем старницу
-        return redirect('wishlist_page')
-    return None
+    request.session['wishlist'] = wishlist
+    request.session.modified = True
+    request.session.save()
+    return redirect('wishlist_page')
+
 
 
 @login_required
 def delet_to_wishlist(request):
-    if request.method == 'GET':
-        product_id = request.GET.get('product_id')
-        try:
-            product = Product.objects.get(id=product_id)
-        except Product.DoesNotExist:
-            print('product not found')
-            return redirect('wishlist_page')
-        wish_item = Wishlist.objects.filter(user=request.user, product=product).first()
-        if wish_item:
-            wish_item.delete()
-            return redirect('wishlist_page')
-    return redirect('home')
+    pass
+
 
 
 
